@@ -11,6 +11,18 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
+import mavonEditor from 'mavon-editor'
+import 'github-markdown-css/github-markdown.css'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-dark-reasonable.css'
+// 如果开启了typescript 需要额外安装 npm install @types/highlight.js
+// 通过 import * as hljs from 'highlight.js' 引入
+Vue.directive('highlight', function(el) {
+  const blocks = el.querySelectorAll('pre code')
+  blocks.forEach(block => {
+    hljs.highlightBlock(block)
+  })
+})
 
 import '@/icons' // icon
 import '@/permission' // permission control
@@ -30,6 +42,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
+Vue.component('mavon-editor', mavonEditor)
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 

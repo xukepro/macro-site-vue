@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import Main from '@/views/main'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -32,7 +33,13 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
-    path: '/login',
+    path: '/',
+    component: () => import('@/views/home'),
+    hidden: true
+  },
+
+  {
+    path: '/login1',
     component: () => import('@/views/login/index'),
     hidden: true
   },
@@ -44,11 +51,48 @@ export const constantRoutes = [
   },
 
   {
-    path: '/',
+    path: '/test',
+    component: () => import('@/views/test')
+  },
+
+  {
+    path: '/admin',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/admin/profile',
     children: [{
-      path: 'dashboard',
+      path: 'profile',
+      name: 'Profile',
+      component: () => import('@/views/admin/profile'),
+      meta: { title: 'profile', icon: 'user' }
+    }]
+  },
+
+  {
+    path: '/admin/article',
+    component: Layout,
+    redirect: '/admin/article',
+    meta: { title: 'Article', icon: 'form' },
+    children: [{
+      path: 'list',
+      component: () => import('@/views/admin/article'),
+      meta: { title: 'Article', icon: 'form' }
+    }, {
+      path: 'edit',
+      component: () => import('@/views/admin/article/editArticle'),
+      meta: { title: 'editArticle', icon: 'form' }
+    }, {
+      path: 'add',
+      component: () => import('@/views/admin/article/addArticle'),
+      meta: { title: 'addArticle', icon: 'form' }
+    }]
+  },
+
+  {
+    path: '/admin/dashboard',
+    component: Layout,
+    redirect: '/admin/dashboard',
+    children: [{
+      path: 'index',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
@@ -56,9 +100,9 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/admin/example',
     component: Layout,
-    redirect: '/example/table',
+    redirect: '/admin/example/table',
     name: 'Example',
     meta: { title: 'Example', icon: 'el-icon-s-help' },
     children: [
@@ -78,7 +122,7 @@ export const constantRoutes = [
   },
 
   {
-    path: '/form',
+    path: '/admin/form',
     component: Layout,
     children: [
       {
@@ -91,9 +135,9 @@ export const constantRoutes = [
   },
 
   {
-    path: '/nested',
+    path: '/admin/nested',
     component: Layout,
-    redirect: '/nested/menu1',
+    redirect: '/admin/nested/menu1',
     name: 'Nested',
     meta: {
       title: 'Nested',
@@ -150,7 +194,7 @@ export const constantRoutes = [
   },
 
   {
-    path: 'external-link',
+    path: '/admi/nexternal-link',
     component: Layout,
     children: [
       {
@@ -160,12 +204,29 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/main',
+    component: Main,
+    children: [
+      {
+        path: '/main',
+        component: () => import('@/views/article/articleList.vue')
+      },
+      {
+        path: '/article/:id',
+        // name: 'article',
+        component: () => import('@/views/article/index.vue'),
+        props: true
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
 
 const createRouter = () => new Router({
-  // mode: 'history', // require service support
+  mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
