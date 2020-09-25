@@ -12,6 +12,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 import 'github-markdown-css/github-markdown.css'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark-reasonable.css'
@@ -42,7 +44,7 @@ if (process.env.NODE_ENV === 'production') {
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
-Vue.component('mavon-editor', mavonEditor)
+Vue.use(mavonEditor)
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 

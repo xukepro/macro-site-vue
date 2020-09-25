@@ -1,27 +1,20 @@
 <template>
   <div>
-    <mytuieditor ref="myQuillEditor" v-model="content" />
-    <div v-html="content" />
+    <MarkdownItVue class="md-body" :content="content" />
   </div>
-  <!-- tui-editor 富文本编辑器   -->
-
 </template>
 
 <script>
-// tuieditor富文本编辑器
-import mytuieditor from '@/components/tuieditor.vue' // 导入tuieditor富文本编辑器组件
+import MarkdownItVue from 'markdown-it-vue'
+import 'markdown-it-vue/dist/markdown-it-vue.css'
 export default {
-  name: 'App',
   components: {
-    mytuieditor // 注册tuieditor富文本编辑器组件
+    MarkdownItVue
   },
   data() {
     return {
-      content: '# tuieditor富文本编辑器初始值'
+      content: '[TOC]\r\n\r\n# Mysql常用命令\r\n```java\r\npublic void test(){\r\n    private int age;\r\n    private String name;\r\n}\r\n```\r\n\r\n## 数据定义语句(DDL)\r\n\r\n### 数据库操作\r\n\r\n- 登录数据'
     }
   }
 }
 </script>
-
-<style scoped>
-</style>

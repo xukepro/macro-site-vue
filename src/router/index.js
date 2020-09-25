@@ -39,7 +39,7 @@ export const constantRoutes = [
   },
 
   {
-    path: '/login1',
+    path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
   },
@@ -70,16 +70,18 @@ export const constantRoutes = [
   {
     path: '/admin/article',
     component: Layout,
-    redirect: '/admin/article',
+    redirect: '/admin/article/list',
     meta: { title: 'Article', icon: 'form' },
     children: [{
       path: 'list',
       component: () => import('@/views/admin/article'),
-      meta: { title: 'Article', icon: 'form' }
+      meta: { title: 'ArticleList', icon: 'form' }
     }, {
-      path: 'edit',
+      path: 'edit/:id',
       component: () => import('@/views/admin/article/editArticle'),
-      meta: { title: 'editArticle', icon: 'form' }
+      meta: { title: 'editArticle', icon: 'form' },
+      hidden: true,
+      props: true
     }, {
       path: 'add',
       component: () => import('@/views/admin/article/addArticle'),
@@ -211,14 +213,21 @@ export const constantRoutes = [
       {
         path: '/main',
         component: () => import('@/views/article/articleList.vue')
-      },
-      {
-        path: '/article/:id',
-        // name: 'article',
-        component: () => import('@/views/article/index.vue'),
-        props: true
       }
+      // {
+      //   path: '/article/:id',
+      //   // name: 'article',
+      //   component: () => import('@/views/article/index.vue'),
+      //   props: true
+      // }
     ]
+  },
+
+  {
+    path: '/article/:id',
+    // name: 'article',
+    component: () => import('@/views/article/index.vue'),
+    props: true
   },
 
   // 404 page must be placed at the end !!!

@@ -243,28 +243,28 @@ const articles = [{
 }]
 
 module.exports = [
-  {
-    url: '/vue-admin-template/admin/profile',
-    type: 'get',
-    response: config => {
-    //   const { userId } = config.query
+  // {
+  //   url: '/vue-admin-template/admin/profile',
+  //   type: 'get',
+  //   response: config => {
+  //   //   const { userId } = config.query
 
-      return {
-        code: 20000,
-        data: profile
-      }
-    }
-  },
-  {
-    url: '/vue-admin-template/admin/article',
-    type: 'get',
-    response: config => {
-    //   const { userId } = config.query
+  //     return {
+  //       code: 20000,
+  //       data: profile
+  //     }
+  //   }
+  // },
+  // {
+  //   url: '/vue-admin-template/admin/article',
+  //   type: 'get',
+  //   response: config => {
+  //   //   const { userId } = config.query
 
-      return {
-        code: 20000,
-        data: articles
-      }
-    }
-  }
+  //     return {
+  //       code: 20000,
+  //       data: articles
+  //     }
+  //   }
+  // }
 ]

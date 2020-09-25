@@ -7,23 +7,24 @@
       border
       fit
       highlight-current-row
-      @row-dblclick="openArticle"
+      @row-dblclick="editArticle"
     >
       <el-table-column label="ID" prop="id" align="center" width="50" />
       <el-table-column label="Author" prop="author" align="center" width="100" />
       <el-table-column label="Title" prop="title" align="center" />
       <el-table-column label="Description" prop="description" align="center" />
-      <el-table-column label="Picture" prop="picture" align="center">
+      <!-- <el-table-column label="Picture" prop="picture" align="center">
         <template slot-scope="scope">
           <img :src="scope.row.picture" alt="picture" style="height:5rem">
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <!-- <el-table-column label="Author" prop="content" /> -->
-      <el-table-column label="Star" prop="star" align="center" width="80" />
+      <el-table-column label="PageViews" prop="pageViews" align="center" width="80" />
+      <el-table-column label="Like" prop="like" align="center" width="80" />
       <el-table-column label="Collect" prop="collect" align="center" width="80" />
       <el-table-column label="Comment" prop="comment" align="center" width="100" />
-      <el-table-column label="CreatAt" prop="createAt" align="center" width="100" />
-      <el-table-column label="UpdateAt" prop="updateAt" align="center" width="100" />
+      <el-table-column label="CreatedAt" prop="createdAt" align="center" width="100" />
+      <el-table-column label="UpdatedAt" prop="updatedAt" align="center" width="100" />
 
       <!-- <el-table-column label="Author" width="110" align="center">
         <template slot-scope="scope">
@@ -51,7 +52,7 @@
 </template>
 
 <script>
-import { getArticles } from '@/api/admin'
+import { getArticleList } from '@/api/article'
 import { mavonEditor } from 'mavon-editor'
 
 export default {
@@ -80,14 +81,13 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getArticles().then(response => {
-        this.list = response.data
-        // console.log(this.list)
+      getArticleList().then(response => {
+        this.list = response.data.list
         this.listLoading = false
       })
     },
-    openArticle(row, column, event) {
-      // console.log(row)
+    editArticle(row, column, event) {
+      this.$router.push('/admin/article/edit/' + row.id)
     }
   }
 }

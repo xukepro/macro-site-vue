@@ -43,10 +43,10 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
-      <div class="tips">
+      <!-- <div class="tips">
         <span style="margin-right:20px;">username: admin</span>
         <span> password: any</span>
-      </div>
+      </div> -->
 
     </el-form>
   </div>
@@ -54,6 +54,7 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
+import { login } from '@/api/user'
 
 export default {
   name: 'Login',
@@ -74,12 +75,12 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '',
+        password: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        username: [{ required: true, message: 'username不能为空' }],
+        password: [{ required: true, message: 'password不能为空' }]
       },
       loading: false,
       passwordType: 'password',
@@ -106,15 +107,21 @@ export default {
       })
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async(valid) => {
         if (valid) {
+          // const { data } = await login(this.loginForm)
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
-            this.loading = false
-          }).catch(() => {
-            this.loading = false
-          })
+          await this.$store.dispatch('user/login', this.loginForm)
+          console.log('await this.$store.dispatch')
+          this.$router.push({ path: '/main' })
+          this.loading = false
+          // this.$store.dispatch('user/login', this.loginForm).then(() => {
+          //   // this.$router.push({ path: this.redirect || '/' })
+          //   this.$router.push({ path: '/main' })
+          //   this.loading = false
+          // }).catch(() => {
+          //   this.loading = false
+          // })
         } else {
           console.log('error submit!!')
           return false
@@ -139,6 +146,14 @@ $cursor: #fff;
   }
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+     -webkit-transition-delay: 99999s;
+     -webkit-transition: color 99999s ease-out, background-color 99999s ease-out;
+}
+
 /* reset element-ui css */
 .login-container {
   .el-input {
@@ -157,7 +172,8 @@ $cursor: #fff;
       caret-color: $cursor;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
+        // box-shadow: 0 0 0px 1000px $bg inset !important;
+        // box-shadow: 0 0 0px 1000px transparent inset !important;
         -webkit-text-fill-color: $cursor !important;
       }
     }
@@ -165,7 +181,7 @@ $cursor: #fff;
 
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.04);
     border-radius: 5px;
     color: #454545;
   }
@@ -178,18 +194,30 @@ $dark_gray:#889aa4;
 $light_gray:#eee;
 
 .login-container {
+  position: relative;
   min-height: 100%;
   width: 100%;
   background-color: $bg;
+  background-image: linear-gradient(to bottom right, rgb(144, 228, 193) , rgb(59, 155, 190));
   overflow: hidden;
 
   .login-form {
-    position: relative;
+    position: absolute;
+    top: calc(20%);
+    right: calc(50% - 520px / 2);
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 35px 35px 0;
     margin: 0 auto;
     overflow: hidden;
+    border-radius: 20px;
+    background-image: linear-gradient(to bottom right, rgb(58, 153, 187), rgb(151, 226, 195));
+    box-shadow: 0 0 50px #227d9e;
+    transition: .2s;
+
+    &:hover {
+      box-shadow: 0 0 100px #145870;
+    }
   }
 
   .tips {

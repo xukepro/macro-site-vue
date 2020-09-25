@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="articleList">
     <ul>
       <li
         is="articleItem"
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { getArticles } from '@/api/admin'
+import { getArticleList } from '@/api/article'
 import ArticleItem from './articleItem'
 
 export default {
@@ -41,8 +41,8 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getArticles().then(response => {
-        this.list = response.data
+      getArticleList().then(response => {
+        this.list = response.data.list
         this.listLoading = false
       })
     },
@@ -54,5 +54,12 @@ export default {
 </script>
 
 <style scoped>
+/* .app-container {
+  margin: 0 auto;
+  padding: 0;
+} */
 
+ul {
+  padding-left: 0;
+}
 </style>

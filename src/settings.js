@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: 'macro-site-vue',
 
   /**
    * @type {boolean} true | false

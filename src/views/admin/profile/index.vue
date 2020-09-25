@@ -1,10 +1,57 @@
 <template>
   <div class="app-container">
-    <el-form ref="form" :model="form" label-width="120px">
-      <el-form-item label="username">
-        <el-input v-model="form.username" />
-      </el-form-item>
-      <el-form-item label="avatar">
+    <div class="profile">
+      <div class="avatar row">
+        <img v-if="info.avatar" :src="info.avatar" style="width:200px">
+      </div>
+      <div v-if="!isEditNickname" class="nickname row">
+        <span>{{ info.nickname }}</span>
+        <el-button type="text" icon="el-icon-edit" size="small" @click="editNickname" />
+      </div>
+      <div v-if="isEditNickname" class="nickname-edit row">
+        <el-input v-model="info.nickname" />
+        <div>
+          <el-button type="text" icon="el-icon-check" @click="updateNickname" />
+          <el-button type="text" icon="el-icon-close" @click="cancelEditNickname" />
+        </div>
+      </div>
+      <div class="email row">
+        <span>{{ info.email }}</span>
+      </div>
+      <div class="role row">
+        <el-tag
+          v-for="role in info.roles"
+          :key="role"
+          type="warning"
+          class="tag"
+        >
+          {{ role }}
+        </el-tag>
+      </div>
+      <div class="total row">
+        <el-tag class="tag" type="success" effect="light">
+          <i class="el-icon-document" />文章：{{ info.totalArticles }}
+        </el-tag>
+        <el-tag class="tag" type="" effect="light">
+          <i class="el-icon-s-comment" />评论：{{ info.totalComment }}
+        </el-tag>
+        <el-tag class="tag" type="" effect="light">
+          <i class="el-icon-star-off" />获赞：{{ info.totalLike }}
+        </el-tag>
+        <el-tag class="tag" type="" effect="light">
+          <i class="el-icon-collection-tag" />收藏：{{ info.totalCollect }}
+        </el-tag>
+        <el-tag class="tag" type="" effect="light">
+          <i class="el-icon-view" />浏览量：{{ info.totalPageViews }}
+        </el-tag>
+      </div>
+    </div>
+
+    <!-- <el-info ref="info" :model="info" label-width="120px">
+      <el-info-item label="username">
+        <el-input v-model="info.username" />
+      </el-info-item>
+      <el-info-item label="avatar">
         <el-upload
           class="avatar-uploader"
           action="https://jsonplaceholder.typicode.com/posts/"
@@ -12,41 +59,59 @@
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="form.avatar" :src="form.avatar" class="avatar">
+          <img v-if="info.avatar" :src="info.avatar" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon" />
         </el-upload>
-        <!-- <img v-if="model.avatar" :src="model.avatar" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon" /> -->
-        <!-- </el-upload> -->
-      </el-form-item>
-    </el-form>
+      </el-info-item>
+    </el-info> -->
   </div>
 </template>
 
 <script>
-import { getProfile } from '@/api/admin'
+import { getInfo, updateUser } from '@/api/user'
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
-      form: {
-        username: '',
-        avatar: ''
-      }
+      info: {
+        'id': 0,
+        'username': '',
+        'nickname': '',
+        'email': '',
+        'avatar': '',
+        'totalComment': 0,
+        'totalArticles': 0,
+        'totalLike': 0,
+        'totalCollect': 0,
+        'totalPageViews': 0,
+        'roles': [],
+        'lastLoginDate': '',
+        'createdAt': '',
+        'updatedAt': ''
+      },
+      isEditNickname: false,
+      nicknameTemp: ''
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
   },
   created() {
     this.fetchData()
   },
   methods: {
-    fetchData() {
-      getProfile().then(response => {
-        // console.log(response)
-        this.form = response.data
-      })
+    async fetchData() {
+      console.log(this.user.id)
+      const { data } = await getInfo(this.user.id)
+      console.log(data)
+      this.info = data
     },
     handleAvatarSuccess(res, file) {
       // console.log(file)
-      this.form.avatar = URL.createObjectURL(file.raw)
+      this.info.avatar = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
@@ -60,37 +125,105 @@ export default {
       }
       // console.log(file)
       return isJPG && isLt2M
+    },
+    editNickname() {
+      this.isEditNickname = true
+      this.nicknameTemp = this.info.nickname
+      console.log(this.nicknameTemp)
+    },
+    cancelEditNickname() {
+      console.log('cancel')
+      this.isEditNickname = false
+      this.info.nickname = this.nicknameTemp
+    },
+    async updateNickname() {
+      console.log('updateNickname')
+      await updateUser({ id: this.info.id, nickname: this.info.nickname })
+      this.isEditNickname = false
+      this.$message({
+        message: '修改成功',
+        type: 'success'
+      })
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 /* .line{
   text-align: center;
 } */
-.avatar-uploader .el-upload {
+/* .avatar-uploader .el-upload {
     border: 1px dashed #8b2d2d;
     border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
   }
-  .avatar-uploader .el-upload:hover {
-    border-color: #060c13;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #000000;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
+.avatar-uploader .el-upload:hover {
+  border-color: #060c13;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #000000;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+} */
+.profile {
+  text-align: center;
+
   .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
+    text-align: center;
+    img {
+      border-radius: 20px;
+    }
   }
+
+  .nickname {
+    height: 50px;
+    text-align: center;
+    font-size: 30px;
+    // font-family: STHeiti Light [STXihei];
+    font-weight: 1000;
+    line-height: 50px;
+  }
+
+  .nickname-edit {
+    ::v-deep .el-input {
+      width: 500px;
+      border-radius: 100px;
+
+      .el-input__inner {
+        text-align: center;
+        font-size: 30px;
+        // font-family: STHeiti Light [STXihei];
+        font-weight: 1000;
+        border: 0;
+      }
+    }
+  }
+
+  .email {
+    height: 30px;
+    font-size: 20px;
+    color: rgb(36, 36, 36);
+    line-height: 30px;
+  }
+
+  .total {
+    font-size: 18px;
+    color: rgb(36, 36, 36);
+  }
+}
+
+.tag {
+  margin: 0 2px;
+}
+
+.row {
+  margin: 20px;
+}
 </style>
 

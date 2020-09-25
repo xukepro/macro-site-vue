@@ -1,12 +1,5 @@
 import request from '@/utils/request'
 
-export function getProfile() {
-  return request({
-    url: '/vue-admin-template/admin/profile',
-    method: 'get'
-  })
-}
-
 export function getArticleList() {
   return request({
     url: '/api/article/list',
@@ -19,5 +12,21 @@ export function getArticleContent(params) {
     url: '/api/article/content/' + params,
     method: 'get'
     // params
+  })
+}
+
+export function addArticle(data) {
+  return request({
+    url: '/api/article',
+    method: 'post',
+    data
+  })
+}
+
+export function updateArticle(data) {
+  return request({
+    url: '/api/article',
+    method: 'put',
+    data: data
   })
 }

@@ -1,22 +1,48 @@
 <template>
   <!-- <div class="app-container"> -->
-  <div>
-    <div>
-      <navbar />
-    </div>
-    <div class="content">
-      <router-view :key="key" />
+  <div class="main">
+    <div class="cover">
+      <div class="header">
+        <navbar />
+      </div>
+      <div class="container">
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <div class="search">
+              <Search />
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="content">
+              <router-view :key="key" />
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="category">
+              <Category />
+            </div>
+          </el-col>
+        </el-row>
+
+      </div>
+      <div class="footer">
+        <span>this is footer</span>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from './Navbar'
+import Category from './Category'
+import Search from './Search'
 
 export default {
   name: 'Main',
   components: {
-    Navbar
+    Navbar,
+    Category,
+    Search
   },
   filters: {
     statusFilter(status) {
@@ -43,8 +69,7 @@ export default {
     this.fetchData()
   },
   methods: {
-    fetchData() {
-    },
+    fetchData() {},
     start() {
       this.$router.push('/home')
     }
@@ -53,7 +78,24 @@ export default {
 </script>
 
 <style scoped>
-.content {
-  margin: 10px 300px;
+.main {
+
+  /* width: 100%;
+  height: 100%; */
+  background-image: url("https://w.wallhaven.cc/full/96/wallhaven-96jx2w.png");
+  background-position: center 0;
+  background-repeat: no-repeat;
+  background-attachment:fixed;
+  background-size: cover;
 }
+
+.cover {
+  min-height: 100%;
+  /* background-color: rgba(253, 253, 253, 0.1); */
+}
+
+.container {
+  padding: 5px;
+}
+
 </style>
