@@ -1,49 +1,54 @@
 <template>
-  <main id="chatMsgList" class="im-chat-main">
-    <!-- <a class="im-list-more" @click="getChatMsgList">{{
-      chatMsgListHandleMoreText
-    }}</a>
-    <template v-for="(item, index) in chatMsgList">
-      <div
-        :key="index"
-        class="im-chat-msg-box"
-        :class="item.isMine ? 'im-chat-msg-mine' : ''"
-      >
-        <div class="im-chat-msg-user">
-          <img :src="item.user.avatar | getDefaultAvatar">
-          <div v-if="item.isMine" class="im-chat-msg-user-remark">
-            <i>{{ item.createTime }}</i><span>{{ item.user.name }}</span>
-          </div>
-          <div v-else class="im-chat-msg-user-remark">
-            <span>{{ item.user.name }}</span><i>{{ item.createTime }}</i>
-          </div>
+  <div class="message">
+    <div class="im-chat-msg-box" :class="isRight ? 'im-chat-msg-mine' : ''">
+      <div class="im-chat-msg-user">
+        <div class="im-chat-msg-user-avatar">
+          <img :src="avatar">
         </div>
-        <div class="im-chat-msg-text" v-html="item.msgContent" />
+        <div v-if="isRight" class="im-chat-msg-user-remark">
+          <!-- <span>{{ item.createdAt }}</span> -->
+          <span>{{ remark }}</span>
+        </div>
+        <div v-else class="im-chat-msg-user-remark">
+          <span>{{ remark }}</span>
+          <!-- <span>{{ item.createdAt }}</span> -->
+        </div>
       </div>
-    </template> -->
-  </main>
+      <div class="im-chat-msg-text" v-html="item.msgContent" />
+    </div>
+  </div>
 </template>
 
 <script>
-import MarkdownItVue from 'markdown-it-vue'
-import 'markdown-it-vue/dist/markdown-it-vue.css'
 export default {
-  components: {
-    MarkdownItVue
+  name: 'Dialogue',
+  props: {
+    item: {
+      type: Object,
+      default: null
+    },
+    isRight: {
+      type: Boolean,
+      default: false
+    },
+    remark: {
+      type: String,
+      default: ''
+    },
+    avatar: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {
-      chatMsgList: [
-        {
-
-        }
-      ]
+      tags: []
     }
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .im-chat-main {
   position: absolute;
   top: 80px;
@@ -80,19 +85,36 @@ export default {
   font-size: 14px;
   vertical-align: top;
   width: 100%;
+
+  // img {
+  //   width: 60px;
+  //   // height: 60px;
+  //   border-radius: 10px;
+  // }
+}
+
+.im-chat-msg-user-avatar {
+  height: 60px;
+  // width: 60px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border-radius: 10px;
+  overflow: hidden;
+
   img {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+    width: 60px;
+    // height: 60px;
   }
 }
+
 .im-chat-msg-user-remark {
   position: absolute;
-  left: 60px;
-  top: -2px;
+  left: 80px;
+  top: -5px;
   line-height: 24px;
   font-size: 12px;
-  color: #999;
+  color: rgb(102, 102, 102);
   text-align: left;
   span {
     display: inline-block;
@@ -110,12 +132,14 @@ export default {
 .im-chat-msg-text {
   position: relative;
   display: inline-block;
+  max-width: 60%;
   line-height: 22px;
   margin-top: 25px;
+  margin-left: 20px;
   padding: 8px 15px;
-  background-color: #e2e2e2;
-  border-radius: 3px;
-  color: #333;
+  background-color: #ffffff;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
   word-break: break-all;
   font-size: 14px;
   img {
@@ -126,28 +150,41 @@ export default {
 .im-chat-msg-text::after {
   content: "";
   position: absolute;
-  left: -10px;
-  top: 13px;
+  left: -15px;
+  top: 5px;
   width: 0;
   height: 0;
   border-style: solid dashed dashed;
-  border-color: #e2e2e2 transparent transparent;
+  border-color: #ffffff transparent transparent;
   overflow: hidden;
   border-width: 10px;
+  border-top: 6px solid transparent;
+  border-left: 6px solid transparent;
+  border-right: 10px solid #ffffff;
+  border-bottom: 6px solid transparent;
 }
 .im-chat-msg-mine .im-chat-msg-text::after {
   left: auto;
-  right: -10px;
-  border-top-color: #5fb878;
+  right: -15px;
+  // border-top-color:#9EEA6A;
+  border-left: 10px solid #9eea6a;
+  border-right: 6px solid transparent;
 }
 .im-chat-msg-mine {
   .im-chat-msg-user {
     left: auto;
     right: 3px;
   }
+
+  .im-chat-msg-user-avatar {
+    position: absolute;
+    left: auto;
+    right: 0px;
+  }
+
   .im-chat-msg-user-remark {
     left: auto;
-    right: 60px;
+    right: 80px;
     text-align: right;
     i {
       padding-left: 0;
@@ -157,9 +194,10 @@ export default {
   .im-chat-msg-text {
     margin-left: 0;
     text-align: left;
-    background-color: #5fb878;
+    margin-right: 20px;
+    background-color: #9eea6a;
     /*background-color: rgba(255, 255, 255, 0.9);*/
-    color: #fff;
+    color: rgb(0, 0, 0);
   }
 }
 </style>

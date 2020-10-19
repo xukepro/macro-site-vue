@@ -14,9 +14,13 @@ import router from './router'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
+import './assets/iconfont/iconfont.css'
+
 import 'github-markdown-css/github-markdown.css'
+
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark-reasonable.css'
+
 // 如果开启了typescript 需要额外安装 npm install @types/highlight.js
 // 通过 import * as hljs from 'highlight.js' 引入
 Vue.directive('highlight', function(el) {

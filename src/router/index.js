@@ -224,6 +224,12 @@ export const constantRoutes = [
   },
 
   {
+    path: '/project/groupchat',
+    component: () => import('@/views/project/groupchat'),
+    hidden: true
+  },
+
+  {
     path: '/article/:id',
     // name: 'article',
     component: () => import('@/views/article/index.vue'),

@@ -180,8 +180,12 @@ export default {
   margin-left: 10px;
 }
 
+.main {
+
+}
+
 .editor {
   width: 100%;
-  height: 500px;
+  height: calc(70vh)
 }
 </style>

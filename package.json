@@ -29,6 +29,7 @@
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",
+    "protobufjs": "^6.10.1",
     "tui-editor": "^1.4.10",
     "vue": "2.6.10",
     "vue-markdown": "^2.2.4",

@@ -23,9 +23,9 @@ export function updateUser(data) {
   })
 }
 
-export function logout() {
+export function getUser() {
   return request({
-    url: '/vue-admin-template/user/logout',
-    method: 'post'
+    url: '/api/user/info/all',
+    method: 'get'
   })
 }

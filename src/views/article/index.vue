@@ -42,16 +42,31 @@
           </div>
         </div>
       </div>
-      <div class="article-content markdown-body">
-        <!-- <VueMarkdown
-          v-highlight
+      <div v-highlight class="article-content markdown-body">
+        <VueMarkdown
           :source="curArticle.content"
           toc
-        /> -->
-        <mavon-editor
-          v-model="curArticle.content"
         />
+        <!-- <mavon-editor
+          v-model="curArticle.content"
+          @change="changeMD"
+        /> -->
+        <!-- <mavon-editor
+          ref="md"
+          v-model="article.content"
+          :ishljs="true"
+          style="height: 100%;width: 100%;"
+        /> -->
         <!-- <MarkdownItVue class="md-body" :content="curArticle.content" /> -->
+        <!-- <div v-html="html" /> -->
+      </div>
+    </div>
+    <div class="catalogue-nav" :class="{ closeCNav: !categoryNavVisible }">
+      <div class="title">
+        <span>导航</span>
+      </div>
+      <div v-for="t1 in toc" :key="t1.title" class="anchor" :class="t1.class">
+        <a :href="'#' + t1.title"> {{ t1.title }}</a>
       </div>
     </div>
     <div class="article-nav" :class="{ closeANav: !articleNavVisible }">
@@ -78,14 +93,6 @@
         <i v-if="!articleNavVisible" class="el-icon-arrow-right" @click="toggleArticleNavVisible" />
       </div>
     </div>
-    <div class="catalogue-nav" :class="{ closeCNav: !categoryNavVisible }">
-      <div class="title">
-        <span>导航</span>
-      </div>
-      <div v-for="t1 in toc" :key="t1.title" class="anchor" :class="t1.class">
-        <a :href="'#' + t1.title"> {{ t1.title }}</a>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -93,14 +100,14 @@
 import { getArticleContent, getArticleList } from '@/api/article'
 import { getCategories } from '@/api/category'
 import VueMarkdown from 'vue-markdown'
-import MarkdownItVue from 'markdown-it-vue'
-import 'markdown-it-vue/dist/markdown-it-vue.css'
+// import MarkdownItVue from 'markdown-it-vue'
+// import 'markdown-it-vue/dist/markdown-it-vue.css'
 
 export default {
   name: 'Article',
   components: {
-    VueMarkdown,
-    MarkdownItVue
+    VueMarkdown
+    // MarkdownItVue
   },
   // eslint-disable-next-line vue/require-prop-types
   props: ['id'],
@@ -115,7 +122,8 @@ export default {
       selectCategory: '',
       articleNavVisible: true,
       categoryNavVisible: true,
-      toc: []
+      toc: [],
+      html: ''
     }
   },
   computed: {
@@ -205,6 +213,10 @@ export default {
 
       this.curTabsValue = activeValue
       this.articleTabs = tabs.filter(tab => tab.title !== targetValue)
+    },
+    changeMD(value, render) {
+      console.log(render)
+      this.html = render
     }
   }
 }
@@ -280,6 +292,7 @@ $shadow: #818181;
 }
 
 .article-content {
+  font-size: 17px;
   line-height: 30px;
 }
 
@@ -287,7 +300,7 @@ $shadow: #818181;
   position: fixed;
   width: 15%;
   top: 100px;
-  left: 10px;
+  right: 50px;
   padding: 10px;
   transition: .2s;
   // box-shadow: 0 0 5px $shadow;
@@ -341,7 +354,7 @@ $shadow: #818181;
 .catalogue-nav {
   position: fixed;
   top: 100px;
-  right: 50px;
+  left: 10px;
   width: 15%;
   height: 500px;
   // box-shadow: 0 0 5px $shadow;
