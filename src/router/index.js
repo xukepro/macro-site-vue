@@ -5,7 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
-import Main from '@/views/main'
+import Main from '@/views/blog/main'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -96,7 +96,7 @@ export const constantRoutes = [
     children: [{
       path: 'index',
       name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/example/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
@@ -111,13 +111,13 @@ export const constantRoutes = [
       {
         path: 'table',
         name: 'Table',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/example/table/index'),
         meta: { title: 'Table', icon: 'table' }
       },
       {
         path: 'tree',
         name: 'Tree',
-        component: () => import('@/views/tree/index'),
+        component: () => import('@/views/example/tree/index'),
         meta: { title: 'Tree', icon: 'tree' }
       }
     ]
@@ -130,7 +130,7 @@ export const constantRoutes = [
       {
         path: 'index',
         name: 'Form',
-        component: () => import('@/views/form/index'),
+        component: () => import('@/views/example/form/index'),
         meta: { title: 'Form', icon: 'form' }
       }
     ]
@@ -224,15 +224,15 @@ export const constantRoutes = [
   },
 
   {
-    path: '/project/groupchat',
-    component: () => import('@/views/project/groupchat'),
+    path: '/chat',
+    component: () => import('@/views/chat'),
     hidden: true
   },
 
   {
     path: '/article/:id',
     // name: 'article',
-    component: () => import('@/views/article/index.vue'),
+    component: () => import('@/views/blog/article/index.vue'),
     props: true
   },
 

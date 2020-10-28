@@ -113,15 +113,9 @@ export default {
           this.loading = true
           await this.$store.dispatch('user/login', this.loginForm)
           console.log('await this.$store.dispatch')
-          this.$router.push({ path: '/main' })
+          // this.$router.push({ path: '/main' })
+          this.$router.back()
           this.loading = false
-          // this.$store.dispatch('user/login', this.loginForm).then(() => {
-          //   // this.$router.push({ path: this.redirect || '/' })
-          //   this.$router.push({ path: '/main' })
-          //   this.loading = false
-          // }).catch(() => {
-          //   this.loading = false
-          // })
         } else {
           console.log('error submit!!')
           return false

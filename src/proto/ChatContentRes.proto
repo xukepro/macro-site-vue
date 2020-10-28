@@ -1,0 +1,14 @@
+syntax ="proto3";
+package protocol;
+
+//optimize_for 加快解析的速度
+option optimize_for = SPEED;
+option java_package = "com.xuke.macrosite.common.protobuf";
+option java_outer_classname="ChatContentResProto";
+
+// 返回实体
+message ChatContentRes{
+    int32 rid = 1;
+    int32 type = 2;
+    string content = 3;
+}

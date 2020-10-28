@@ -50,7 +50,8 @@ export default {
     left:0;
     height:100%;
     width:100%;
-    background-image: url("https://w.wallhaven.cc/full/wy/wallhaven-wyzxvr.jpg");
+    /* background-image: url("https://w.wallhaven.cc/full/wy/wallhaven-wyzxvr.jpg"); */
+    background-image: url("../../assets/pic/2.jpg");
     background-position: center 0;
     background-repeat: no-repeat;
     background-attachment:fixed;

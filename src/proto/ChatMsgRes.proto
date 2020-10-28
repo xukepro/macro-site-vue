@@ -1,0 +1,17 @@
+syntax ="proto3";
+package protocol;
+
+import "ChatContentRes.proto";
+
+//optimize_for 加快解析的速度
+option optimize_for = SPEED;
+option java_package = "com.xuke.macrosite.common.protobuf";
+option java_outer_classname="ChatMsgResProto";
+
+// 返回实体
+message ChatMsgRes{
+    int32 type = 1;
+    int32 uid = 2;
+    ChatContentRes chat_content = 3;
+    string send_time = 4;
+}

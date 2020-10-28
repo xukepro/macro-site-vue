@@ -8,15 +8,15 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     user: {
-      'id': 1,
-      'username': 'xuke',
-      'nickname': '卡特琳娜',
-      'token': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4dWtlIiwiY3JlYXRlZCI6MTYwMDczODU4NzQ5MiwiZXhwIjoxNjAxMzQzMzg3fQ.hLlzZXYNqiks0q68TdpSodSKzMDpxRTIfbV9Wyfp_Hceo7UFu_qSXkoX6laP_xgJxcBB_Yryw_9yNRFkg9Ak2g',
-      'avatarUrl': 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3092876123,1883080168&fm=26&gp=0.jpg',
-      'roles': ['USER', 'ADMIN', 'SUPERADMIN'],
-      'likeArticles': [1, 2, 3, 4],
-      'collectArticles': [1, 2, 3],
-      'lastLoginDate': '2020-9-22 01:35:54'
+      // 'id': 1,
+      // 'username': 'xuke',
+      // 'nickname': '卡特琳娜',
+      // 'token': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ4dWtlIiwiY3JlYXRlZCI6MTYwMDczODU4NzQ5MiwiZXhwIjoxNjAxMzQzMzg3fQ.hLlzZXYNqiks0q68TdpSodSKzMDpxRTIfbV9Wyfp_Hceo7UFu_qSXkoX6laP_xgJxcBB_Yryw_9yNRFkg9Ak2g',
+      // 'avatarUrl': 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3092876123,1883080168&fm=26&gp=0.jpg',
+      // 'roles': ['USER', 'ADMIN', 'SUPERADMIN'],
+      // 'likeArticles': [1, 2, 3, 4],
+      // 'collectArticles': [1, 2, 3],
+      // 'lastLoginDate': '2020-9-22 01:35:54'
     }
   }
 }
@@ -48,6 +48,7 @@ const actions = {
 
     const { data } = await login({ username: username.trim(), password: password })
     commit('SET_USER', data)
+    /* 将user保存到Cookie中 */
     setUser(data)
     console.log('setUser(data.token)')
     // return new Promise((resolve, reject) => {

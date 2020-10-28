@@ -1,0 +1,13 @@
+syntax ="proto3";
+package protocol;
+
+//optimize_for 加快解析的速度
+option optimize_for = SPEED;
+option java_package = "com.xuke.macrosite.common.protobuf";
+option java_outer_classname="ChatMsgReqProto";
+
+// 返回实体
+message ChatMsgReq{
+    int32 type = 1;
+    int32 uid = 2;
+}

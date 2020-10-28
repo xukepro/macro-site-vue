@@ -32,11 +32,17 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://47.93.42.142:8080',
+        // target: 'http://47.93.42.142:8080',
         // target: 'http://localhost:8080',
-        // target: 'http://10.128.207.76:8080',
+        target: 'http://10.128.207.76:8000',
         changeOrigin: true,
         pathRewrite: { '^/api': '' }
+      },
+      '/route': {
+        // target: 'http://10.28.184.57:8100',
+        target: 'http://10.128.207.76:8100',
+        changeOrigin: true,
+        pathRewrite: { '^/route': '' }
       }
     },
     port: port,
