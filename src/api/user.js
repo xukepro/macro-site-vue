@@ -23,7 +23,7 @@ export function updateUser(data) {
   })
 }
 
-export function getUser() {
+export function getAllUser() {
   return request({
     url: '/api/user/info/all',
     method: 'get'

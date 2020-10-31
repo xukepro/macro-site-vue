@@ -32,6 +32,10 @@ Vue.directive('highlight', function(el) {
 
 import '@/icons' // icon
 import '@/permission' // permission control
+import Modal from '@/components/modal'
+// Modal.install = function(Vue) {
+//   Vue.component(Modal.name, Modal)
+// }
 
 /**
  * If you don't want to use mock-server
@@ -49,6 +53,7 @@ if (process.env.NODE_ENV === 'production') {
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 Vue.use(mavonEditor)
+// Vue.use(Modal)
 // 如果想要中文版 element-ui，按如下方式声明
 // Vue.use(ElementUI)
 
