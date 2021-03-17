@@ -23,6 +23,11 @@
   </transition>
 </template>
 
+<!-- <div slot="ft" class="ft">
+  <a class="btn btn-primary" @click="sure">确定</a>
+  <a class="btn btn-default" @click="isVisible=false">取消</a>
+</div> -->
+
 <script>
 export default {
   name: 'MyModal',

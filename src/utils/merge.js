@@ -28,6 +28,5 @@ const merge = (lists, i, j) => {
 }
 
 export const mergeKLists = (lists) => {
-  console.log(lists)
   return merge(lists, 0, lists.length - 1)
 }

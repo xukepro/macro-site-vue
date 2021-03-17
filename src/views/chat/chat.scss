@@ -1,0 +1,194 @@
+.nav .nav-list .nav-item {
+    .avatar {
+      position: relative;
+      float: left;
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      text-align: center;
+      overflow: hidden;
+
+      ::v-deep .el-badge__content.is-fixed {
+        top: 10px;
+        right: 18px;
+        border: 0;
+      }
+
+      img {
+        border-radius: 10px;
+        width: 60px;
+        vertical-align: middle;
+      }
+    }
+
+    .info {
+      position: relative;
+      float: left;
+      width: 160px;
+      padding-left: 10px;
+      line-height: 30px;
+
+      .row {
+        position: relative;
+        height: 30px;
+        overflow: hidden;
+
+        .remark {
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .date {
+          position: absolute;
+          right: 0;
+          // float: right;
+          color: #696969;
+          font-size: 12px;
+        }
+      }
+
+      .message {
+        font-size: 12px;
+        height: 30px;
+        width: 160px;
+        color: #696969;
+        overflow: hidden;
+
+        button {
+          padding: 5px 10px;
+          border-radius: 5px;
+          outline: 0;
+          border: 0;
+          color: #2e2e2e;
+          background-color: #f5f5f5ce;
+
+          &:hover {
+            cursor: pointer;
+            background-color: rgb(255, 255, 255);
+          }
+        }
+
+        .agree-btn {
+          background-color: #7ee687ce;
+        }
+
+        .refuse-btn {
+          background-color: #ff9b9bce;
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: rgb(224, 224, 224);
+    }
+  }
+
+  .window {
+    .header {
+      height: 50px;
+      padding: 0 20px;
+      line-height: 50px;
+      vertical-align: middle;
+      background-color: #edeae8b7;
+
+      .title {
+        float: left;
+      }
+
+      .operation {
+        float: right;
+        color: #686868;
+        cursor: pointer;
+
+        &:hover {
+          color: #000000;
+        }
+
+        .el-dropdown-item {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .chat-message {
+      width: 100%;
+      height: 400px;
+      padding: 0 10px;
+      overflow-y: auto;
+
+      .more-message {
+        margin: 10px 0;
+        text-align: center;
+        font-size: 13px;
+        color: #1b71a3e3;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      .message-item {
+        padding: 5px;
+      }
+    }
+
+    .send-message {
+      position: relative;
+      height: calc(100% - 50px - 400px);
+      padding: 5px 10px;
+      background-color: #ffffff7c;
+
+      .tools {
+        height: 30px;
+        line-height: 30px;
+        .iconfont {
+          font-size: 20px;
+          color: #b3b3b3;
+          margin: 5px;
+        }
+
+        .left-tools {
+          float: left;
+        }
+
+        .right-tools {
+          float: right;
+        }
+      }
+
+      .content {
+        height: calc(100% - 30px);
+
+        .mytextarea {
+          width: 100%;
+          height: calc(100% - 40px);
+          // height: 100px;
+          border: none;
+          resize: none;
+          outline: 0;
+          overflow-y: auto;
+          background-color: transparent;
+        }
+      }
+
+      .btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+
+        button {
+          padding: 5px 10px;
+          border-radius: 5px;
+          outline: 0;
+          border: 0;
+          color: #686868;
+          background-color: #f5f5f5ce;
+
+          &:hover {
+            cursor: pointer;
+            background-color: rgb(255, 255, 255);
+          }
+        }
+      }
+    }
+  }
